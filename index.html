@@ -43,14 +43,14 @@ angular.module("bankooTest", [])
 		function handleClick(e){
 			window.paymentRequest.canMakePayment().then(function(result){
 				console.log(result);
-				if(result === true) {
+				//if(result === true) {
 					window.paymentRequest.show().then(function(result){
 						console.log("RESULT");
 						console.log(result);
 					})
-				} else {
+				//} else {
 					vm.failed = "FAILED";
-				}
+				//}
 			})
 		}
 	});
