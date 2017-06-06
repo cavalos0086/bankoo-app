@@ -30,7 +30,9 @@ angular.module("bankooTest", [])
 
 			var paymentRequest = new window.PaymentRequest(supportedPaymentMethods, paymentDetails);
 			console.log(paymentRequest);
-			paymentRequest.show();
+			paymentRequest.show().then(function(){
+				console.log("go");
+			})
 			console.log(paymentRequest);
 		}
 })
