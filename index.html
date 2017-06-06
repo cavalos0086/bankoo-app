@@ -1,14 +1,31 @@
-<html>
+<html ng-app="bankooTest">
 	<head>
-	</head>
-	<body>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 	<script>
-		if(window.PaymentRequest) {
-			console.log("Payment Request Present");
-		} else {
-			console.log("Payment Request Not Found");
+		angular.module("bankooTest", [])
+		.run(function(){
+			if(window.PaymentRequest) {
+				paymentRequestInit();
+			} else {
+				console.log("Payment Request Not Found");
+			}
+
+			function paymentRequestInit() {
+				console.log(window.PaymentRequest);
+			}
+		})
+	.controller("mainController", function(){
+		var vm = this;
+		vm.handleClick = handleClick;
+
+		function handleClick(e){
+
 		}
+	});
 	</script>
-	<h1>Hello World</h1>
+	</head>
+	<body ng-controller="mainController as vm">
+		<h1>Hello World</h1>
+		<button ng-click="vm.handleClick()">Send Request</button>
 	</body>
 </html>
