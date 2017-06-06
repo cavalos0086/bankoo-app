@@ -41,8 +41,10 @@ angular.module("bankooTest", [])
 		});
 
 		function handleClick(e){
-			console.log(paymentRequest);
-			console.log(paymentRequest);
+			window.paymentRequest.show().then(function(result){
+				console.log("RESULT");
+				console.log(result);
+			})
 		}
 	});
 		</script>
