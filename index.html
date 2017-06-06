@@ -40,7 +40,8 @@ angular.module("bankooTest", [])
 				}
 			};
 
-			paymentRequest = new window.PaymentRequest(supportedPaymentMethods, paymentDetails);
+			var paymentRequest = new window.PaymentRequest(supportedPaymentMethods, paymentDetails);
+			console.log(paymentRequest);
 			paymentRequest.show();
 			console.log(paymentRequest);
 		}
