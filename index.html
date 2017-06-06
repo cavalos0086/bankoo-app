@@ -12,7 +12,7 @@ angular.module("bankooTest", [])
 
 		function initPaymentRequestApi() {
 			var supportedPaymentMethods = [{
-            supportedMethods: ['basic-card', "https://oceanhuang-github-io-bankoo.herokuapp.com/"],
+            supportedMethods: ['basic-card', 'https:/shuffguy.github.com/bankoo-app'],
             data: {
               merchantName: 'The Merchant Name',
               customKey: 'customValue'
@@ -28,17 +28,9 @@ angular.module("bankooTest", [])
 				}
 			};
 
-			var paymentRequest = new window.PaymentRequest(supportedPaymentMethods, paymentDetails);
+			paymentRequest = new window.PaymentRequest(supportedPaymentMethods, paymentDetails);
 			paymentRequest.canMakePayment().then(function(result){
 				console.log(result);
-				//if(result === true) {
-					window.paymentRequest.show().then(function(result){
-						console.log("RESULT");
-						console.log(result);
-					})
-				//} else {
-					vm.failed = "FAILED";
-				//}
 			})
 		}
 })
@@ -46,8 +38,23 @@ angular.module("bankooTest", [])
 		var vm = this;
 		vm.isSecureContext = window.isSecureContext;
 		vm.handleClick = handleClick;
+		window.paymentRequest.canMakePayment().then(function(result){
+			console.log(result);
+			vm.canMakePayment = result;
+		});
 
 		function handleClick(e){
+			window.paymentRequest.canMakePayment().then(function(result){
+				console.log(result);
+				if(result === true) {
+					window.paymentRequest.show().then(function(result){
+						console.log("RESULT");
+						console.log(result);
+					})
+				} else {
+					vm.failed = "FAILED";
+				}
+			})
 		}
 	});
 		</script>
