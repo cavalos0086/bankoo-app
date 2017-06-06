@@ -11,31 +11,19 @@ angular.module("bankooTest", [])
 		}
 
 		function initPaymentRequestApi() {
-			var supportedPaymentMethods = [
-				{
-					supportedMethods: ['https://android.com/pay'],
-					data: {
-						merchantId: '02510116604241796260',
-						environment: 'TEST',
-						checkoutData: {
-							shuff: true
-						},
-						allowedCardNetworks: ['AMEX', 'MASTERCARD', 'VISA', 'DISCOVER'],
-						paymentMethodTokenizationParameters: {
-							tokenizationType: 'NETWORK_TOKEN',
-							parameters: {
-								publicKey: 'BC9u7amr4kFD8qsdxnEfWV7RPDR9v4gLLkx3jfyaGOvxBoEuLZKE0Tt5O/2jMMxJ9axHpAZD2Jhi4E74nqxr944='
-							}
-						}
-					}
-				}
-			];
+			var supportedPaymentMethods = [{
+            supportedMethods: ['basic-card', 'https:/shuffguy.github.com/bankoo-app'],
+            data: {
+              merchantName: 'The Merchant Name',
+              customKey: 'customValue'
+            },
+          }];
 			var paymentDetails = {
 				total: {
 					label: 'Total',
 					amount: {
 						currency: 'USD',
-						value: 0
+						value: '0'
 					}
 				}
 			};
