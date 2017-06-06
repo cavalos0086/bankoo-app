@@ -28,8 +28,8 @@ angular.module("bankooTest", [])
 				}
 			};
 
-			window.paymentRequest = new window.PaymentRequest(supportedPaymentMethods, paymentDetails);
-			window.paymentRequest.canMakePayment().then(function(result){
+			var paymentRequest = new window.PaymentRequest(supportedPaymentMethods, paymentDetails);
+			paymentRequest.canMakePayment().then(function(result){
 				console.log(result);
 				//if(result === true) {
 					window.paymentRequest.show().then(function(result){
