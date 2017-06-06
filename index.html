@@ -16,6 +16,7 @@
 		})
 	.controller("mainController", function(){
 		var vm = this;
+		vm.isSecureContext = window.isSecureContext;
 		vm.handleClick = handleClick;
 
 		function handleClick(e){
@@ -25,7 +26,7 @@
 	</script>
 	</head>
 	<body ng-controller="mainController as vm">
-		<h1>Hello World</h1>
+		<h1>Is Secure Context {{vm.isSecureContext}}</h1>
 		<button ng-click="vm.handleClick()">Send Request</button>
 	</body>
 </html>
