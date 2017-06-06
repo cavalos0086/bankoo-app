@@ -29,11 +29,6 @@ angular.module("bankooTest", [])
 			};
 
 			var paymentRequest = new window.PaymentRequest(supportedPaymentMethods, paymentDetails);
-			console.log(paymentRequest);
-			paymentRequest.canMakePayment().then(function(result){
-				console.log(result);
-			})
-			console.log(paymentRequest);
 		}
 })
 	.controller("mainController", function(){
@@ -42,13 +37,19 @@ angular.module("bankooTest", [])
 		vm.handleClick = handleClick;
 
 		function handleClick(e){
-
+			console.log(paymentRequest);
+			paymentRequest.canMakePayment().then(function(result){
+				console.log(result);
+				vm.canMakePayment = result;
+			})
+			console.log(paymentRequest);
 		}
 	});
 		</script>
 	</head>
 	<body ng-controller="mainController as vm">
 		<h1>Is Secure Context {{vm.isSecureContext}}</h1>
+		<h1>Can Make Payment {{vm.result}}</h1>
 		<button ng-click="vm.handleClick()">Send Request</button>
 	</body>
 </html>
