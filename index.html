@@ -35,7 +35,7 @@ angular.module("bankooTest", [])
 		var vm = this;
 		vm.isSecureContext = window.isSecureContext;
 		vm.handleClick = handleClick;
-		paymentRequest.canMakePayment().then(function(result){
+		window.paymentRequest.canMakePayment().then(function(result){
 			console.log(result);
 			vm.canMakePayment = result;
 		});
