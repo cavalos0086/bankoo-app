@@ -28,7 +28,7 @@ angular.module("bankooTest", [])
 				}
 			};
 
-			var paymentRequest = new window.PaymentRequest(supportedPaymentMethods, paymentDetails);
+			window.paymentRequest = new window.PaymentRequest(supportedPaymentMethods, paymentDetails);
 		}
 })
 	.controller("mainController", function(){
