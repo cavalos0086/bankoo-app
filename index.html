@@ -41,9 +41,15 @@ angular.module("bankooTest", [])
 		});
 
 		function handleClick(e){
-			window.paymentRequest.show().then(function(result){
-				console.log("RESULT");
-				console.log(result);
+			window.paymentRequest.canMakePayment().then(function(){
+				if(result === true) {
+					window.paymentRequest.show().then(function(result){
+						console.log("RESULT");
+						console.log(result);
+					})
+				} else {
+					vm.failed = "FAILED";
+				}
 			})
 		}
 	});
@@ -52,6 +58,7 @@ angular.module("bankooTest", [])
 	<body ng-controller="mainController as vm">
 		<h1>Is Secure Context {{vm.isSecureContext}}</h1>
 		<h1>Can Make Payment {{vm.canMakePayment}}</h1>
+		<h1>{{vm.failed}}</h1>
 		<button ng-click="vm.handleClick()">Send Request</button>
 	</body>
 </html>
