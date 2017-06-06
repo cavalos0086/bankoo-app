@@ -1,20 +1,49 @@
 <html ng-app="bankooTest">
 	<head>
 		<script src="bower_components/angular/angular.min.js"></script>
-	<script>
-		angular.module("bankooTest", [])
-		.run(function(){
-			if(window.PaymentRequest) {
-				paymentRequestInit();
-			} else {
-				console.log("Payment Request Not Found");
-			}
+		<script>
+angular.module("bankooTest", [])
+	.run(function(){
+		if(window.PaymentRequest) {
+			initPaymentRequestApi();
+		} else {
+			console.log("Payment Request Not Found");
+		}
 
-			function paymentRequestInit() {
-				console.log(window.PaymentRequest);
-				var paymentRequest = new PaymentRequest({},{});
-			}
-		})
+		function initPaymentRequestApi() {
+			var supportedPaymentMethods = [
+				{
+					supportedMethods: ['https://android.com/pay'],
+					data: {
+						merchantId: '02510116604241796260',
+						environment: 'TEST',
+						checkoutData: {
+							shuff: true
+						},
+						allowedCardNetworks: ['AMEX', 'MASTERCARD', 'VISA', 'DISCOVER'],
+						paymentMethodTokenizationParameters: {
+							tokenizationType: 'NETWORK_TOKEN',
+							parameters: {
+								publicKey: 'BC9u7amr4kFD8qsdxnEfWV7RPDR9v4gLLkx3jfyaGOvxBoEuLZKE0Tt5O/2jMMxJ9axHpAZD2Jhi4E74nqxr944='
+							}
+						}
+					}
+				}
+			];
+			var paymentDetails = {
+				total: {
+					label: 'Total',
+					amount: {
+						currency: 'USD',
+						value: 0
+					}
+				}
+			};
+
+			paymentRequest = new window.PaymentRequest(supportedPaymentMethods, paymentDetails);
+			console.log(paymentRequest);
+		}
+})
 	.controller("mainController", function(){
 		var vm = this;
 		vm.isSecureContext = window.isSecureContext;
@@ -24,7 +53,7 @@
 
 		}
 	});
-	</script>
+		</script>
 	</head>
 	<body ng-controller="mainController as vm">
 		<h1>Is Secure Context {{vm.isSecureContext}}</h1>
