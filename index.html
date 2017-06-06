@@ -29,18 +29,6 @@ angular.module("bankooTest", [])
 			};
 
 			window.paymentRequest = new window.PaymentRequest(supportedPaymentMethods, paymentDetails);
-		}
-})
-	.controller("mainController", function(){
-		var vm = this;
-		vm.isSecureContext = window.isSecureContext;
-		vm.handleClick = handleClick;
-		window.paymentRequest.canMakePayment().then(function(result){
-			console.log(result);
-			vm.canMakePayment = result;
-		});
-
-		function handleClick(e){
 			window.paymentRequest.canMakePayment().then(function(result){
 				console.log(result);
 				//if(result === true) {
@@ -52,6 +40,14 @@ angular.module("bankooTest", [])
 					vm.failed = "FAILED";
 				//}
 			})
+		}
+})
+	.controller("mainController", function(){
+		var vm = this;
+		vm.isSecureContext = window.isSecureContext;
+		vm.handleClick = handleClick;
+
+		function handleClick(e){
 		}
 	});
 		</script>
