@@ -14,6 +14,7 @@ angular.module("bankooTest", [])
 			var supportedPaymentMethods = [{
 				supportedMethods: ["https://oceanhuang-github-io-bankoo.herokuapp.com/"],
 				data: {
+					merchantName: 'Bankoo',
 					customKey: {
 						theKey1: 'theKey',
 						theKey2: 'theSameThingKey',
@@ -34,7 +35,7 @@ angular.module("bankooTest", [])
 
 			var paymentDetails = {  
 				total: {  
-					label: 'null',  
+					label: 'Shuff',  
 					amount: {  
 						currency: 'USD',  
 						value: '20',  
@@ -48,7 +49,7 @@ angular.module("bankooTest", [])
 			})
 		}
 	})
-	.controller("mainController", function(){
+	.controller("mainController", function($q){
 		var vm = this;
 		vm.isSecureContext = window.isSecureContext;
 		vm.handleClick = handleClick;
