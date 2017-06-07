@@ -52,24 +52,24 @@ angular.module("bankooTest", [])
 		var vm = this;
 		vm.isSecureContext = window.isSecureContext;
 		vm.handleClick = handleClick;
+		vm.apiPresent = !!window.PaymentRequest;
 		if(window.PaymentRequest){
-			window.paymentRequest.canMakePayment().then(function(result){
-				console.log(result);
-				vm.canMakePayment = result;
-			});
+			var paymentRequestPromise = $q(window.paymentRequest.canMakePayment)
+				
+				paymentRequestPromise.then(function(result){
+					vm.canMakePayment = result;
+				});
 		}
 		function handleClick(e){
-			window.paymentRequest.show().then(function(result){
-				console.log("RESULT");
-				console.log(result);
-			})
+			window.paymentRequest.show();
 		}
 	});
 		</script>
 	</head>
 	<body ng-controller="mainController as vm">
 		<h1>Is Secure Context {{vm.isSecureContext}}</h1>
-		<h1>Can Make Payment {{vm.canMakePayment}}</h1>
+		<h1>Api Present {{vm.apiPresent}}</h1>
+		<h1 ng-show="vm.apiPresent">Can Make Payment {{vm.canMakePayment}}</h1>
 		<h1>{{vm.failed}}</h1>
 		<button ng-click="vm.handleClick()">Send Request</button>
 	</body>
