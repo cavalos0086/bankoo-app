@@ -13,7 +13,6 @@ angular.module("bankooTest", [])
 		function initPaymentRequestApi() {
 			var supportedPaymentMethods = [{
 				supportedMethods: ["https://oceanhuang-github-io-bankoo.herokuapp.com/"],
-				total: '23',
 				data: {
 					customKey: {
 						theKey1: 'theKey',
@@ -32,7 +31,16 @@ angular.module("bankooTest", [])
 					}
 				},
 			}];
-			var paymentDetails = {};
+
+			var paymentDetails = {  
+				total: {  
+					label: '',  
+					amount: {  
+						currency: '',  
+						value: '',  
+					},  
+				},  
+			};
 
 			window.paymentRequest = new window.PaymentRequest(supportedPaymentMethods, paymentDetails);
 			window.paymentRequest.canMakePayment().then(function(result){
