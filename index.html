@@ -14,21 +14,26 @@ angular.module("bankooTest", [])
 			var supportedPaymentMethods = [{
 				supportedMethods: ["https://oceanhuang-github-io-bankoo.herokuapp.com/"],
 				data: {
-					merchantName: 'The Merchant Name',
-					customKey: 'customValue'
+					customKey: {
+						theKey1: 'theKey',
+						theKey2: 'theSameThingKey',
+						theKey3: 'theKey',
+						theKey4: 'theKey',
+						theKey6: 'theKey',
+						theKey14: 'theKey',
+						theKey9: 'theKey',
+						theKey7: 'theKey',
+						theKey21: 'theKey',
+						theKey13: 'theKey',
+						theKey20: 'theKey',
+						theKey15: 'theKey',
+						theKey20: 'theKey'
+					}
 				},
 			}];
-			var paymentDetails = {
-				total: {
-					label: 'Total',
-					amount: {
-						currency: 'USD',
-						value: '0'
-					}
-				}
-			};
+			var paymentDetails = {};
 
-			window.paymentRequest = new window.PaymentRequest(supportedPaymentMethods, paymentDetails);
+			var paymentRequest = new window.PaymentRequest(supportedPaymentMethods, paymentDetails);
 			paymentRequest.canMakePayment().then(function(result){
 				console.log(result);
 			})
