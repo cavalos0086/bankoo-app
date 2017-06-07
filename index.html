@@ -46,16 +46,15 @@ angular.module("bankooTest", [])
 			window.paymentRequest = new window.PaymentRequest(supportedPaymentMethods, paymentDetails);
 		}
 	})
-	.controller("mainController", function($q){
+	.controller("mainController", function($scope){
 		var vm = this;
 		vm.isSecureContext = window.isSecureContext;
 		vm.handleClick = handleClick;
 		vm.apiPresent = !!window.PaymentRequest;
-		if(window.PaymentRequest){
-			var paymentRequestPromise = $q(window.paymentRequest.canMakePayment)
-				
-				paymentRequestPromise().then(function(result){
+		if(window.paymentRequest){
+				window.paymentRequest.canMakePayment().then(function(result){
 					vm.canMakePayment = result;
+					$scope.$apply();
 				});
 		}
 		function handleClick(e){
