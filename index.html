@@ -1,13 +1,18 @@
 <html ng-app="bankooTest">
 	<head>
-		<script src="bower_components/angular/angular.min.js"></script>
-		<script>
-angular.module("bankooTest", [])
-	.run(function(){
-		if(window.PaymentRequest) {
-			initPaymentRequestApi();
-		} else {
-			console.log("Payment Request Not Found");
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script>
+		angular.module("bankooTest", [])
+			.run(run)
+			.controller("mainController", mainController);
+
+		function run(){
+			if(window.PaymentRequest) {
+				initPaymentRequestApi();
+			} else {
+				console.log("Payment Request Not Found");
+			}
+
 		}
 
 		function initPaymentRequestApi() {
@@ -15,7 +20,7 @@ angular.module("bankooTest", [])
 				supportedMethods: ["https://oceanhuang-github-io-bankoo.herokuapp.com/"],
 				data: {
 					merchantName: 'Bankoo',
-					customKey: {
+					checkoutObject: {
 						theKey1: 'theKey',
 						theKey2: 'theSameThingKey',
 						theKey3: 'theKey',
@@ -33,35 +38,88 @@ angular.module("bankooTest", [])
 				},
 			}];
 
-			var paymentDetails = {  
-				total: {  
-					label: 'Shuff',  
-					amount: {  
-						currency: 'USD',  
-						value: '20',  
-					},  
-				},  
+			var paymentDetails = {
+				total: {
+					label: 'mechantName',
+					amount: {
+						currency: 'USD',
+						value: '20',
+					},
+				},
 			};
 
 			window.paymentRequest = new window.PaymentRequest(supportedPaymentMethods, paymentDetails);
+
+			var supportedPaymentMethods = [{
+				supportedMethods: ["https://oceanhuang-github-io-bankoo.herokuapp.com/"],
+				data: {
+					merchantName: 'Biiiiiii',
+					checkoutObject: {
+						theKey1: 'theKeyiiiiii:i',
+						theKey2: 'theSameThingKey',
+						theKey3: 'theKey',
+						theKey4: 'theKey',
+						theKey6: 'theKey',
+						theKey14: 'theKey',
+						theKey9: 'theKey',
+						theKey7: 'theKey',
+						theKey21: 'theKey',
+						theKey13: 'theKey',
+						theKey20: 'theKey',
+						theKey15: 'theKey',
+						theKey20: 'theKey'
+					}
+				},
+			}];
+
+			var paymentDetails = {
+				total: {
+					label: 'mechantName',
+					amount: {
+						currency: 'USD',
+						value: '20',
+					},
+				},
+			};
+			window.paymentRequest = new window.PaymentRequest(supportedPaymentMethods, paymentDetails);
 		}
-	})
-	.controller("mainController", function($scope){
-		var vm = this;
-		vm.isSecureContext = window.isSecureContext;
-		vm.handleClick = handleClick;
-		vm.apiPresent = !!window.PaymentRequest;
-		if(window.paymentRequest){
-				window.paymentRequest.canMakePayment().then(function(result){
-					vm.canMakePayment = result;
-					$scope.$apply();
-				});
+
+		function mainController($scope){
+			var vm = this;
+			vm.isSecureContext = window.isSecureContext;
+			vm.handleClick = handleClick;
+			vm.apiPresent = !!window.PaymentRequest;
+
+			if(window.paymentRequest){
+				window.paymentRequest.canMakePayment()
+					.then(canMakePaymentResponse)
+					.catch(handleError);
+			}
+
+			function canMakePaymentResponse(result){
+				vm.canMakePayment = result;
+				$scope.$apply();
+			}
+
+			function handleError(err) {
+				console.log(err);
+			}
+
+			function handleClick(e){
+				window.paymentRequest.show()
+					.then(handleResponse)
+					.catch(handleError);
+			}
+
+			function handleResponse(checkoutResponse){
+				checkoutResponse.complete('success');
+			}
+
+			function handleError(checkoutError){
+				console.log(checkoutError);
+			}
 		}
-		function handleClick(e){
-			window.paymentRequest.show();
-		}
-	});
-		</script>
+	</script>
 	</head>
 	<body ng-controller="mainController as vm">
 		<h1>Is Secure Context {{vm.isSecureContext}}</h1>
