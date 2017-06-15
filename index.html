@@ -64,20 +64,6 @@ function initPaymentRequestApi() {
 			vm.handleClick = handleClick;
 			vm.apiPresent = !!window.PaymentRequest;
 
-			if(window.paymentRequest){
-				window.paymentRequest.canMakePayment()
-					.then(canMakePaymentResponse)
-					.catch(handleError);
-			}
-
-			function canMakePaymentResponse(result){
-				vm.canMakePayment = result;
-				$scope.$apply();
-			}
-
-			function handleError(err) {
-				console.log(err);
-			}
 
 			function handleClick(e){
 				window.paymentRequest.show()
