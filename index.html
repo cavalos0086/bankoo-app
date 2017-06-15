@@ -1,42 +1,49 @@
 <html ng-app="bankooTest">
 	<head>
-	<script src="bower_components/angular/angular.min.js"></script>
-	<script>
-		angular.module("bankooTest", [])
-			.run(run)
-			.controller("mainController", mainController);
+		<script src="bower_components/angular/angular.min.js"></script>
+		<script>
+angular.module("bankooTest", [])
+	.run(run)
+	.controller("mainController", mainController);
 
-		function run(){
-			if(window.PaymentRequest) {
-				initPaymentRequestApi();
-			} else {
-				console.log("Payment Request Not Found");
+function run(){
+	if(window.PaymentRequest) {
+		initPaymentRequestApi();
+	} else {
+		console.log("Payment Request Not Found");
+	}
+
+}
+
+function initPaymentRequestApi() {
+
+	var supportedInstruments = [
+		{
+			supportedMethods: ['basic-card'],
+			data: {
+				supportedNetworks: ['amex', 'discover', 'mastercard', 'visa']
 			}
-
-		}
-
-		function initPaymentRequestApi() {
-			var supportedPaymentMethods = [{
+		},
+		{
 			supportedMethods: ['https://android.com/pay'],
-				data: {
-					merchantName: 'Bankoo',
-					checkoutObject: {
-						theKey1: 'theKey',
-						theKey2: 'theSameThingKey',
-						theKey3: 'theKey',
-						theKey4: 'theKey',
-						theKey6: 'theKey',
-						theKey14: 'theKey',
-						theKey9: 'theKey',
-						theKey7: 'theKey',
-						theKey21: 'theKey',
-						theKey13: 'theKey',
-						theKey20: 'theKey',
-						theKey15: 'theKey',
-						theKey20: 'theKey'
+			data: {
+				//merchant ID obtained from Google that maps to your origin
+				merchantId: '02510116604241796260',
+				environment: 'TEST',
+				// Credit Cards allowed via Android Pay
+				allowedCardNetworks: ['AMEX', 'MASTERCARD', 'VISA', 'DISCOVER'],
+				paymentMethodTokenizationParameters: {
+					tokenizationType: 'GATEWAY_TOKEN',
+					parameters: {
+						'gateway': 'stripe',
+						// Place your own Stripe publishable key here.
+						'stripe:publishableKey': 'pk_live_fD7ggZCtrB0vJNApRX5TyJ9T',
+						'stripe:version': '2016-07-06'
 					}
-				},
-			}];
+				}
+			}
+		}
+	];
 
 			var paymentDetails = {
 				total: {
@@ -48,7 +55,7 @@
 				},
 			};
 
-			window.paymentRequest = new window.PaymentRequest(supportedPaymentMethods, paymentDetails);
+			window.paymentRequest = new window.PaymentRequest(supportedInstruments, paymentDetails);
 		}
 
 		function mainController($scope){
@@ -69,8 +76,9 @@
 			}
 
 			function handleError(err) {
-				alert(err);
+				alert("ERROR");
 				vm.error = err.toString();
+				console.log(err);
 			}
 
 			function handleClick(e){
