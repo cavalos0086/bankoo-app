@@ -17,7 +17,7 @@
 
 		function initPaymentRequestApi() {
 			var supportedPaymentMethods = [{
-				supportedMethods: ["https://oceanhuang-github-io-bankoo.herokuapp.com/"],
+			supportedMethods: ['https://android.com/pay'],
 				data: {
 					merchantName: 'Bankoo',
 					checkoutObject: {
@@ -112,6 +112,7 @@
 			}
 
 			function handleResponse(checkoutResponse){
+				alert(checkoutReponse);
 				checkoutResponse.complete('success');
 			}
 
