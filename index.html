@@ -69,6 +69,7 @@
 			}
 
 			function handleError(err) {
+				alert("ERROR");
 				vm.error = err.toString();
 				console.log(err);
 			}
@@ -80,6 +81,7 @@
 			}
 
 			function handleResponse(checkoutResponse){
+				alert("COMPLETED");
 				alert(checkoutReponse);
 				checkoutResponse.complete('success');
 			}
