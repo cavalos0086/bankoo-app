@@ -49,39 +49,6 @@
 			};
 
 			window.paymentRequest = new window.PaymentRequest(supportedPaymentMethods, paymentDetails);
-
-			var supportedPaymentMethods = [{
-				supportedMethods: ["172.20.100.219:8000/"],
-				data: {
-					merchantName: 'Biiiiiii',
-					checkoutObject: {
-						theKey1: 'theKeyiiiiii:i',
-						theKey2: 'theSameThingKey',
-						theKey3: 'theKey',
-						theKey4: 'theKey',
-						theKey6: 'theKey',
-						theKey14: 'theKey',
-						theKey9: 'theKey',
-						theKey7: 'theKey',
-						theKey21: 'theKey',
-						theKey13: 'theKey',
-						theKey20: 'theKey',
-						theKey15: 'theKey',
-						theKey20: 'theKey'
-					}
-				},
-			}];
-
-			var paymentDetails = {
-				total: {
-					label: 'mechantName',
-					amount: {
-						currency: 'USD',
-						value: '20',
-					},
-				},
-			};
-			window.paymentRequest = new window.PaymentRequest(supportedPaymentMethods, paymentDetails);
 		}
 
 		function mainController($scope){
