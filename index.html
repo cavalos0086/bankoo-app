@@ -64,6 +64,9 @@ function initPaymentRequestApi() {
 			vm.handleClick = handleClick;
 			vm.apiPresent = !!window.PaymentRequest;
 
+			function handleError(err) {
+				alert(err);
+			}
 
 			function handleClick(e){
 				window.paymentRequest.show()
@@ -72,7 +75,6 @@ function initPaymentRequestApi() {
 			}
 
 			function handleResponse(checkoutResponse){
-				alert("COMPLETED");
 				alert(checkoutReponse);
 				checkoutResponse.complete('success');
 			}
