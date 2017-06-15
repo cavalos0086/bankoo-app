@@ -74,7 +74,7 @@ function initPaymentRequestApi() {
 				setTimeout(function(){
 					window.paymentRequest.abort().then(function(){
 						alert("PAYMENT ABORTED FROM FUNCTION")
-					});
+					}).catch(function(err){ alert("Unable to abbrt"); alert(err)})
 				}, 3000);
 
 			}
