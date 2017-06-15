@@ -69,11 +69,11 @@ function initPaymentRequestApi() {
 			function handleClick(e){
 				alert(window.paymentRequest.abort)
 				window.paymentRequest.show()
+					.then(handleResponse)
+					//.catch(handleError)
 					.abort(function(){
 						alert("Aborted from abort function");
 					})
-					.then(handleResponse)
-					.catch(handleError);
 			}
 
 			function handleResponse(checkoutResponse){
