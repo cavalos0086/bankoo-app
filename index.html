@@ -70,11 +70,11 @@ function initPaymentRequestApi() {
 				window.paymentRequest.show()
 					.then(handleResponse)
 					.catch(handleError);
-			}
 			setTimeout(function(){
 				window.paymentRequest.abort();
 				alert("ABORTED");
 			},2500)
+			}
 
 			function handleResponse(checkoutResponse){
 				alert(checkoutReponse);
