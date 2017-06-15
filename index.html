@@ -67,13 +67,13 @@ function initPaymentRequestApi() {
 			}
 
 			function handleClick(e){
+				alert(window.paymentRequest.abort)
 				window.paymentRequest.show()
+					.abort(function(){
+						alert("Aborted from abort function");
+					})
 					.then(handleResponse)
 					.catch(handleError);
-			setTimeout(function(){
-				window.paymentRequest.abort();
-				alert("ABORTED");
-			},2500)
 			}
 
 			function handleResponse(checkoutResponse){
