@@ -65,7 +65,9 @@ function initPaymentRequestApi() {
 			vm.apiPresent = !!window.PaymentRequest;
 
 			function handleError(err) {
-				alert(err);
+				if(err.message === "Request cancelled"){
+					vm.requestStatus = "Request Cancelled";
+				}
 			}
 
 			function handleClick(e){
@@ -87,5 +89,6 @@ function initPaymentRequestApi() {
 		<h1>Api Present {{vm.apiPresent}}</h1>
 		<h1 ng-show="vm.apiPresent">Can Make Payment {{vm.canMakePayment}}</h1>
 		<button ng-click="vm.handleClick()">Send Request</button>
+		<h1>{{vm.requestStatus}}</h1>
 	</body>
 </html>
