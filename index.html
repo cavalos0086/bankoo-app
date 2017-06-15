@@ -69,11 +69,14 @@ function initPaymentRequestApi() {
 			function handleClick(e){
 				window.paymentRequest.show()
 					.then(handleResponse)
-					//.catch(handleError)
+					.catch(handleError)
 
-				.abort().then(function(){
-					alert("PAYMENT ABORTED FROM FUNCTION")
-				})
+				setTimeout(function(){
+					window.paymentRequest.abort().then(function(){
+						alert("PAYMENT ABORTED FROM FUNCTION")
+					});
+				}, 3000);
+
 			}
 
 			function handleResponse(checkoutResponse){
