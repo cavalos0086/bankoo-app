@@ -63,6 +63,7 @@ function initPaymentRequestApi() {
 				if(err.message === "Request cancelled"){
 					vm.requestStatus = "Request Cancelled";
 				}
+				alert(err)
 			}
 
 			function handleClick(e){
