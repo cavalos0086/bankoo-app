@@ -69,6 +69,7 @@
 			}
 
 			function handleError(err) {
+				vm.error = err.toString();
 				console.log(err);
 			}
 
@@ -93,7 +94,7 @@
 		<h1>Is Secure Context {{vm.isSecureContext}}</h1>
 		<h1>Api Present {{vm.apiPresent}}</h1>
 		<h1 ng-show="vm.apiPresent">Can Make Payment {{vm.canMakePayment}}</h1>
-		<h1>{{vm.failed}}</h1>
+		<h1>The error {{vm.err}}</h1>
 		<button ng-click="vm.handleClick()">Send Request</button>
 	</body>
 </html>
