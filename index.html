@@ -67,20 +67,19 @@ function initPaymentRequestApi() {
 			}
 
 			function handleClick(e){
-				window.paymentRequest.show()
-					.then(handleResponse)
-					.catch(handleError)
+				window.paymentRequest.canMakePayment().then(function(canMakePayment){
+					vm.canMakePayment = canMakePayment;
+					window.paymentRequest.show()
+						.then(handleResponse)
+						.catch(handleError)
+					$scope.$apply();
 
-				setTimeout(function(){
-					window.paymentRequest.abort().then(function(){
-						alert("PAYMENT ABORTED FROM FUNCTION")
-					}).catch(function(err){ alert("Unable to abbrt"); alert(err)})
-				}, 3000);
+
+				})
 
 			}
 
 			function handleResponse(checkoutResponse){
-				alert(checkoutReponse);
 				checkoutResponse.complete('success');
 			}
 
