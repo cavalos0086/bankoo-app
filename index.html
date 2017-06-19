@@ -59,6 +59,7 @@ function initPaymentRequestApi(supportedPaymentMethod) {
 			vm.handleClick = handleClick;
 			vm.useAndroid = useAndroid;
 			vm.useBankoo = useBankoo;
+			vm.useBoth = useBoth;
 			vm.apiPresent = !!window.PaymentRequest;
 			vm.supportedPaymentMethod = ['https://oceanhuang-github-io-bankoo.herokuapp.com/'];
 
@@ -110,7 +111,7 @@ function initPaymentRequestApi(supportedPaymentMethod) {
 			<h4>{{vm.supportedPaymentMethod}}</h4>
 			<button ng-click="vm.useAndroid()">Use Android Pay</button>
 			<button ng-click="vm.useBankoo()">Use Bankoo Pay</button>
-			<button ng-click="vm.useBoth()">Use Bankoo Pay</button>
+			<button ng-click="vm.useBoth()">Use Both</button>
 		</div>
 		<button ng-click="vm.handleClick()">Send Request</button>
 		<h1>{{vm.requestStatus}}</h1>
