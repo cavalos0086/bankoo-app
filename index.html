@@ -6,21 +6,22 @@ angular.module("bankooTest", [])
 	.run(run)
 	.controller("mainController", mainController);
 
-function run(){
+function run(supportedPaymentMethod){
 	if(window.PaymentRequest) {
-		initPaymentRequestApi();
+		initPaymentRequestApi(supportedPaymentMethod);
 	} else {
 		console.log("Payment Request Not Found");
 	}
 
 }
 
-function initPaymentRequestApi() {
+function initPaymentRequestApi(supportedPaymentMethod) {
+
 
 	var supportedInstruments = [
 
 		{
-			supportedMethods: ['https://android.com/pay'],
+			supportedMethods: supportedPaymentMethod,
 			data: {
 				//merchant ID obtained from Google that maps to your origin
 				merchantId: '02510116604241796260',
@@ -57,7 +58,22 @@ function initPaymentRequestApi() {
 			var vm = this;
 			vm.isSecureContext = window.isSecureContext;
 			vm.handleClick = handleClick;
+			vm.useAndroid = useAndroid;
+			vm.useBankoo = useBankoo;
 			vm.apiPresent = !!window.PaymentRequest;
+			vm.supportedPaymentMethod = ['https://oceanhuang-github-io-bankoo.herokuapp.com/'];
+
+			function useBankoo() {
+				vm.supportedPaymentMethod = ['https://oceanhuang-github-io-bankoo.herokuapp.com/'];
+			}
+
+			function useAndroid() {
+				vm.supportedPaymentMethod = ['https://android.com/pay'];
+			}
+
+			function useBoth() {
+				vm.supportedPaymentMethod = [ 'https://android.com/pay',  'https://oceanhuang-github-io-bankoo.herokuapp.com/']
+			}
 
 			function handleError(err) {
 				if(err.message === "Request cancelled"){
@@ -67,6 +83,7 @@ function initPaymentRequestApi() {
 			}
 
 			function handleClick(e){
+				run(vm.supportedPaymentMethod);
 				window.paymentRequest.canMakePayment().then(function(canMakePayment){
 					vm.canMakePayment = canMakePayment;
 					window.paymentRequest.show()
@@ -90,6 +107,12 @@ function initPaymentRequestApi() {
 		<h1>Is Secure Context {{vm.isSecureContext}}</h1>
 		<h1>Api Present {{vm.apiPresent}}</h1>
 		<h1 ng-show="vm.apiPresent">Can Make Payment {{vm.canMakePayment}}</h1>
+		<div>
+			<h4>{{vm.supportedPaymentMethod}}</h4>
+			<button ng-click="vm.useAndroid()">Use Android Pay</button>
+			<button ng-click="vm.useBankoo()">Use Bankoo Pay</button>
+			<button ng-click="vm.useBoth()">Use Bankoo Pay</button>
+		</div>
 		<button ng-click="vm.handleClick()">Send Request</button>
 		<h1>{{vm.requestStatus}}</h1>
 	</body>
