@@ -102,15 +102,15 @@ function initPaymentRequestApi(supportedPaymentMethod) {
 
 			function handleClick(e){
 				run(vm.supportedPaymentMethod);
-				//window.paymentRequest.canMakePayment().then(function(canMakePayment){
-				//	vm.canMakePayment = canMakePayment;
+				window.paymentRequest.canMakePayment().then(function(canMakePayment){
+					vm.canMakePayment = canMakePayment;
 					window.paymentRequest.show()
 						.then(handleResponse)
 						.catch(handleError)
 					$scope.$apply();
 
 
-				//})
+				})
 
 			}
 
