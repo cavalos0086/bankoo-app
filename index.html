@@ -18,25 +18,25 @@ function initPaymentRequestApi(supportedPaymentMethod) {
 
 
 	var supportedInstruments = [
-		{
-			supportedMethods: ['https://masterpass-payment-api.herokuapp.com/'],
-			data: {
-				//merchant ID obtained from Google that maps to your origin
-				merchantId: '02510116604241796260',
-				environment: 'TEST',
-				// Credit Cards allowed via Android Pay
-				allowedCardNetworks: ['AMEX', 'MASTERCARD', 'VISA', 'DISCOVER'],
-				paymentMethodTokenizationParameters: {
-					tokenizationType: 'GATEWAY_TOKEN',
-					parameters: {
-						'gateway': 'stripe',
-						// Place your own Stripe publishable key here.
-						'stripe:publishableKey': 'pk_live_fD7ggZCtrB0vJNApRX5TyJ9T',
-						'stripe:version': '2016-07-06'
-					}
-				}
-			}
-		},
+//		{
+//			supportedMethods: ['https://masterpass-payment-api.herokuapp.com/'],
+//			data: {
+//				//merchant ID obtained from Google that maps to your origin
+//				merchantId: '02510116604241796260',
+//				environment: 'TEST',
+//				// Credit Cards allowed via Android Pay
+//				allowedCardNetworks: ['AMEX', 'MASTERCARD', 'VISA', 'DISCOVER'],
+//				paymentMethodTokenizationParameters: {
+//					tokenizationType: 'GATEWAY_TOKEN',
+//					parameters: {
+//						'gateway': 'stripe',
+//						// Place your own Stripe publishable key here.
+//						'stripe:publishableKey': 'pk_live_fD7ggZCtrB0vJNApRX5TyJ9T',
+//						'stripe:version': '2016-07-06'
+//					}
+//				}
+//			}
+//		},
 		{
 			supportedMethods: ['https://android.com/pay'],
 			data: {
