@@ -58,13 +58,13 @@ function initPaymentRequestApi(supportedPaymentMethod) {
 			vm.isSecureContext = window.isSecureContext;
 			vm.handleClick = handleClick;
 			vm.useAndroid = useAndroid;
-			vm.useBankoo = useBankoo;
+			vm.useMasterpass = useMasterpass;
 			vm.useBoth = useBoth;
 			vm.apiPresent = !!window.PaymentRequest;
-			vm.supportedPaymentMethod = ['https://oceanhuang-github-io-bankoo.herokuapp.com/'];
+			vm.supportedPaymentMethod = ['https://masterpass-payment-api.herokuapp.com/'];
 
-			function useBankoo() {
-				vm.supportedPaymentMethod = ['https://oceanhuang-github-io-bankoo.herokuapp.com/'];
+			function useMasterpass() {
+				vm.supportedPaymentMethod = ['https://masterpass-payment-api.herokuapp.com/'];
 			}
 
 			function useAndroid() {
@@ -72,7 +72,7 @@ function initPaymentRequestApi(supportedPaymentMethod) {
 			}
 
 			function useBoth() {
-				vm.supportedPaymentMethod = [ 'https://android.com/pay',  'https://oceanhuang-github-io-bankoo.herokuapp.com/']
+				vm.supportedPaymentMethod = [ 'https://android.com/pay',  'https://masterpass-payment-api.herokuapp.com/']
 			}
 
 			function handleError(err) {
@@ -110,7 +110,7 @@ function initPaymentRequestApi(supportedPaymentMethod) {
 		<div>
 			<h4>{{vm.supportedPaymentMethod}}</h4>
 			<button ng-click="vm.useAndroid()">Use Android Pay</button>
-			<button ng-click="vm.useBankoo()">Use Bankoo Pay</button>
+			<button ng-click="vm.useMasterpass()">Use Masterpass Pay</button>
 			<button ng-click="vm.useBoth()">Use Both</button>
 		</div>
 		<button ng-click="vm.handleClick()">Send Request</button>
