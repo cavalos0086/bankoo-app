@@ -101,7 +101,7 @@ function initPaymentRequestApi(supportedPaymentMethod) {
 
 			function callCanMakePayment() {
 				for(var i=0;i<100;i++) {
-					window.PaymentRequest.canMakePayment().then(function() {
+					window.paymentRequest.canMakePayment().then(function() {
 						vm.counter++;
 						console.log('*****', vm.counter);
 					})
