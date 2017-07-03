@@ -103,9 +103,9 @@ function initPaymentRequestApi(supportedPaymentMethod) {
 				for(var i=0;i<100;i++) {
 					window.PaymentRequest.canMakePayment().then(function() {
 						vm.counter++;
+						console.log('*****', vm.counter);
 					})
 				}
-				$scope.$apply();
 			}
 		}
 	</script>
