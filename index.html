@@ -105,6 +105,7 @@ function initPaymentRequestApi(supportedPaymentMethod) {
 					window.PaymentRequest.canMakePayment.then(function() {
 					});
 				}
+				$scope.$apply();
 			}
 		}
 	</script>
