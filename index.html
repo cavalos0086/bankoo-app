@@ -54,6 +54,7 @@ function initPaymentRequestApi(supportedPaymentMethod) {
 
 		function mainController($scope){
 			var vm = this;
+			vm.counter = 0;
 			vm.isSecureContext = window.isSecureContext;
 			vm.handleClick = handleClick;
 			vm.useAndroid = useAndroid;
@@ -83,23 +84,28 @@ function initPaymentRequestApi(supportedPaymentMethod) {
 
 			function handleClick(e){
 				run(vm.supportedPaymentMethod);
-				 window.paymentRequest.canMakePayment().then(function(canMakePayment){
-					console.log(canMakePayment)
+
+				window.paymentRequest.canMakePayment().then(function(canMakePayment){
+				console.log(canMakePayment)
 				vm.canMakePayment = canMakePayment;
-					window.paymentRequest.show()
-						.then(handleResponse)
-						.catch(handleError)
+				window.paymentRequest.show()
+					.then(handleResponse)
+					.catch(handleError)
 					$scope.$apply();
-
-
 				})
-
 			}
 
 			function handleResponse(checkoutResponse){
 				checkoutResponse.complete('success');
 			}
 
+			function callCanMakePayment() {
+				for(var i=0;i<100;i++) {
+					vm.counter++;
+					window.PaymentRequest.canMakePayment.then(function() {
+					});
+				}
+			}
 		}
 	</script>
 	</head>
@@ -114,6 +120,8 @@ function initPaymentRequestApi(supportedPaymentMethod) {
 			<button ng-click="vm.useBoth()">Use Both</button>
 		</div>
 		<button ng-click="vm.handleClick()">Send Request</button>
+		<button ng-click="vm.callCanMakePayment()">call canMakePayment</button>
 		<h1>{{vm.requestStatus}}</h1>
+		<h1>{{vm.counter}}</h1>
 	</body>
 </html>
