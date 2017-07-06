@@ -1,43 +1,42 @@
 <html ng-app="bankooTest">
-	<head>
-		<script src="bower_components/angular/angular.min.js"></script>
-		<script>
-angular.module("bankooTest", [])
-	.controller("mainController", mainController);
 
-function run(supportedPaymentMethod){
-	if(window.PaymentRequest) {
-		initPaymentRequestApi(supportedPaymentMethod);
-	} else {
-		console.log("Payment Request Not Found");
-	}
+<head>
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script>
+		angular.module("bankooTest", [])
+			.controller("mainController", mainController);
 
-}
+		function run(supportedPaymentMethod) {
+			if (window.PaymentRequest) {
+				initPaymentRequestApi(supportedPaymentMethod);
+			} else {
+				console.log("Payment Request Not Found");
+			}
 
-function initPaymentRequestApi(supportedPaymentMethod) {
+		}
 
-
-	var supportedInstruments = [
-		{
-			supportedMethods: ['https://android.com/pay'],
-			data: {
-				//merchant ID obtained from Google that maps to your origin
-				merchantId: '02510116604241796260',
-				environment: 'TEST',
-				// Credit Cards allowed via Android Pay
-				allowedCardNetworks: ['AMEX', 'MASTERCARD', 'VISA', 'DISCOVER'],
-				paymentMethodTokenizationParameters: {
-					tokenizationType: 'GATEWAY_TOKEN',
-					parameters: {
-						'gateway': 'stripe',
-						// Place your own Stripe publishable key here.
-						'stripe:publishableKey': 'pk_live_fD7ggZCtrB0vJNApRX5TyJ9T',
-						'stripe:version': '2016-07-06'
+		function initPaymentRequestApi(supportedPaymentMethod) {
+			var supportedInstruments = [
+				{
+					supportedMethods: ['https://android.com/pay'],
+					data: {
+						//merchant ID obtained from Google that maps to your origin
+						merchantId: '02510116604241796260',
+						environment: 'TEST',
+						// Credit Cards allowed via Android Pay
+						allowedCardNetworks: ['AMEX', 'MASTERCARD', 'VISA', 'DISCOVER'],
+						paymentMethodTokenizationParameters: {
+							tokenizationType: 'GATEWAY_TOKEN',
+							parameters: {
+								'gateway': 'stripe',
+								// Place your own Stripe publishable key here.
+								'stripe:publishableKey': 'pk_live_fD7ggZCtrB0vJNApRX5TyJ9T',
+								'stripe:version': '2016-07-06'
+							}
+						}
 					}
 				}
-			}
-		}
-	];
+			];
 
 			var paymentDetails = {
 				total: {
@@ -52,12 +51,12 @@ function initPaymentRequestApi(supportedPaymentMethod) {
 			window.paymentRequest = new window.PaymentRequest(supportedInstruments, paymentDetails);
 		}
 
-		function mainController($scope){
+		function mainController($scope) {
 			var vm = this;
 			vm.counter = 0;
 			vm.isSecureContext = window.isSecureContext;
 			vm.handleClick = handleClick;
-			vm.callCanMakePayment =callCanMakePayment;
+			vm.callCanMakePayment = callCanMakePayment;
 			vm.useAndroid = useAndroid;
 			vm.useMasterpass = useMasterpass;
 			vm.useBoth = useBoth;
@@ -73,57 +72,62 @@ function initPaymentRequestApi(supportedPaymentMethod) {
 			}
 
 			function useBoth() {
-				vm.supportedPaymentMethod = [ 'https://android.com/pay',  'https://masterpass-payment-api.herokuapp.com/']
+				vm.supportedPaymentMethod = ['https://android.com/pay', 'https://masterpass-payment-api.herokuapp.com/']
 			}
 
 			function handleError(err) {
-				if(err.message === "Request cancelled"){
+				if (err.message === "Request cancelled") {
 					vm.requestStatus = "Request Cancelled";
 				}
 				alert(err)
 			}
 
-			function handleClick(e){
+			function handleClick(e) {
 				run(vm.supportedPaymentMethod);
 
-				window.paymentRequest.canMakePayment().then(function(canMakePayment){
-				console.log(canMakePayment)
-				vm.canMakePayment = canMakePayment;
-				window.paymentRequest.show()
-					.then(handleResponse)
-					.catch(handleError)
-					$scope.$apply();
+				window.paymentRequest.canMakePayment().then(function (canMakePayment) {
+					console.log(canMakePayment)
+					vm.canMakePayment = canMakePayment;
+					window.paymentRequest.show()
+						.then(handleResponse)
+						.catch(handleError);
 				})
 			}
 
-			function handleResponse(checkoutResponse){
+			function handleResponse(checkoutResponse) {
 				checkoutResponse.complete('success');
 			}
 
 			function callCanMakePayment() {
-				for(var i=0;i<100;i++) {
-					window.paymentRequest.canMakePayment().then(function() {
-						vm.counter++;
-						console.log('*****', vm.counter);
+				var counter = 0;
+				window.paymentRequest.canMakePayment()
+					.then(function(succ) {
+						counter++;
+						console.log('*****', succ);
+						console.log('*****', counter);
 					})
-				}
+					.catch(function(err) {
+						console.log('*****', err);
+					})
 			}
 		}
 	</script>
-	</head>
-	<body ng-controller="mainController as vm">
-		<h1>Is Secure Context {{vm.isSecureContext}}</h1>
-		<h1>Api Present {{vm.apiPresent}}</h1>
-		<h1 ng-show="vm.apiPresent">Can Make Payment {{vm.canMakePayment}}</h1>
-		<div>
-			<h4>{{vm.supportedPaymentMethod}}</h4>
-			<button ng-click="vm.useAndroid()">Use Android Pay</button>
-			<button ng-click="vm.useMasterpass()">Use Masterpass Pay</button>
-			<button ng-click="vm.useBoth()">Use Both</button>
-		</div>
-		<button ng-click="vm.handleClick()">Send Request</button>
-		<button ng-click="vm.callCanMakePayment()">call canMakePayment</button>
-		<h1>{{vm.requestStatus}}</h1>
-		<h1>{{vm.counter}}</h1>
-	</body>
+</head>
+
+<body ng-controller="mainController as vm">
+	<h1>Is Secure Context {{vm.isSecureContext}}</h1>
+	<h1>Api Present {{vm.apiPresent}}</h1>
+	<h1 ng-show="vm.apiPresent">Can Make Payment {{vm.canMakePayment}}</h1>
+	<div>
+		<h4>{{vm.supportedPaymentMethod}}</h4>
+		<button ng-click="vm.useAndroid()">Use Android Pay</button>
+		<button ng-click="vm.useMasterpass()">Use Masterpass Pay</button>
+		<button ng-click="vm.useBoth()">Use Both</button>
+	</div>
+	<button ng-click="vm.handleClick()">Send Request</button>
+	<button ng-click="vm.callCanMakePayment()">call canMakePayment</button>
+	<h1>{{vm.requestStatus}}</h1>
+	<h1>{{vm.counter}}</h1>
+</body>
+
 </html>
