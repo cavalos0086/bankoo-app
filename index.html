@@ -100,12 +100,11 @@
 
 			function callCanMakePayment() {
 				run(vm.supportedPaymentMethod);
-				var counter = 0;
 				window.paymentRequest.canMakePayment()
 					.then(function(succ) {
-						counter++;
+						vm.counter++;
 						console.log('*****', succ);
-						console.log('*****', counter);
+						console.log('*****', vm.counter);
 					})
 					.catch(function(err) {
 						console.log('*****', err);
