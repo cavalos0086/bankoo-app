@@ -59,7 +59,8 @@
 			vm.callCanMakePayment = callCanMakePayment;
 			vm.useAndroid = useAndroid;
 			vm.useMasterpass = useMasterpass;
-			vm.useBoth = useBoth;
+			vm.useAll = useAll;
+			vm.useCardsOnly = useCardsOnly;
 			vm.apiPresent = !!window.PaymentRequest;
 			vm.supportedPaymentMethod = ['https://masterpass-payment-api.herokuapp.com/'];
 
@@ -71,8 +72,12 @@
 				vm.supportedPaymentMethod = ['https://android.com/pay'];
 			}
 
-			function useBoth() {
-				vm.supportedPaymentMethod = ['https://android.com/pay', 'https://masterpass-payment-api.herokuapp.com/']
+			function useCardsOnly() {
+				vm.supportedPaymentMethod = ['basic-card'];
+			}
+
+			function useAll() {
+				vm.supportedPaymentMethod = ['basic-card', 'https://android.com/pay', 'https://masterpass-payment-api.herokuapp.com/']
 			}
 
 			function handleError(err) {
@@ -122,7 +127,8 @@
 		<h4>{{vm.supportedPaymentMethod}}</h4>
 		<button ng-click="vm.useAndroid()">Use Android Pay</button>
 		<button ng-click="vm.useMasterpass()">Use Masterpass Pay</button>
-		<button ng-click="vm.useBoth()">Use Both</button>
+		<button ng-click="vm.useCardsOnly()">Use Masterpass Pay</button>
+		<button ng-click="vm.useAll()">Use Both</button>
 	</div>
 	<button ng-click="vm.handleClick()">Send Request</button>
 	<button ng-click="vm.callCanMakePayment()">call canMakePayment</button>
