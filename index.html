@@ -99,6 +99,7 @@
 			}
 
 			function callCanMakePayment() {
+				run(vm.supportedPaymentMethod);
 				var counter = 0;
 				window.paymentRequest.canMakePayment()
 					.then(function(succ) {
