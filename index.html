@@ -90,16 +90,16 @@
 			function handleClick(e) {
 				run(vm.supportedPaymentMethod);
 
-				window.paymentRequest.canMakePayment().then(function (canMakePayment) {
-					console.log(canMakePayment)
-					vm.canMakePayment = canMakePayment;
-					window.paymentRequest.show()
-						.then(handleResponse)
-						.catch(handleError);
-				})
-				// window.paymentRequest.show()
-				// .then(handleResponse)
-				// .catch(handleError);
+				// window.paymentRequest.canMakePayment().then(function (canMakePayment) {
+				// 	console.log(canMakePayment)
+				// 	vm.canMakePayment = canMakePayment;
+				// 	window.paymentRequest.show()
+				// 		.then(handleResponse)
+				// 		.catch(handleError);
+				// })
+				window.paymentRequest.show()
+				.then(handleResponse)
+				.catch(handleError);
 			}
 
 			function handleResponse(checkoutResponse) {
