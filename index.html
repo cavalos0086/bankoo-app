@@ -80,6 +80,10 @@
 				vm.supportedPaymentMethod = ['basic-card', 'https://android.com/pay', 'https://masterpass-payment-api.herokuapp.com/']
 			}
 
+			function usTwo() {
+				vm.supportedPaymentMethod = ['https://android.com/pay', 'https://masterpass-payment-api.herokuapp.com/']
+			}
+
 			function handleError(err) {
 				if (err.message === "Request cancelled") {
 					vm.requestStatus = "Request Cancelled";
@@ -90,16 +94,16 @@
 			function handleClick(e) {
 				run(vm.supportedPaymentMethod);
 
-				window.paymentRequest.canMakePayment().then(function (canMakePayment) {
-					console.log(canMakePayment)
-					vm.canMakePayment = canMakePayment;
-					window.paymentRequest.show()
-						.then(handleResponse)
-						.catch(handleError);
-				})
-				// window.paymentRequest.show()
-				// .then(handleResponse)
-				// .catch(handleError);
+				// window.paymentRequest.canMakePayment().then(function (canMakePayment) {
+				// 	console.log(canMakePayment)
+				// 	vm.canMakePayment = canMakePayment;
+				// 	window.paymentRequest.show()
+				// 		.then(handleResponse)
+				// 		.catch(handleError);
+				// })
+				window.paymentRequest.show()
+				.then(handleResponse)
+				.catch(handleError);
 			}
 
 			function handleResponse(checkoutResponse) {
@@ -131,6 +135,7 @@
 		<button ng-click="vm.useAndroid()">Use Android Pay</button>
 		<button ng-click="vm.useMasterpass()">Use Masterpass Pay</button>
 		<button ng-click="vm.useCardsOnly()">use basic-card only</button>
+		<button ng-click="vm.useTwo()">Use AndroidPay and Bankoo</button>
 		<button ng-click="vm.useAll()">Use All</button>
 	</div>
 	<button ng-click="vm.handleClick()">Send Request</button>
