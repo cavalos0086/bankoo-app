@@ -64,10 +64,10 @@
 			vm.useAll = useAll;
 			vm.useCardsOnly = useCardsOnly;
 			vm.apiPresent = !!window.PaymentRequest;
-			vm.supportedPaymentMethod = ['https://stage1.masterpass.com'];
+			vm.supportedPaymentMethod = ['https://masterpass-payment-api.herokuapp.com/'];
 
 			function useMasterpass() {
-				vm.supportedPaymentMethod = ['https://stage1.masterpass.com'];
+				vm.supportedPaymentMethod = ['https://masterpass-payment-api.herokuapp.com/'];
 			}
 
 			function useAndroid() {
