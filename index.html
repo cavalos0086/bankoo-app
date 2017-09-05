@@ -60,6 +60,7 @@
 			vm.useAndroid = useAndroid;
 			vm.useMasterpass = useMasterpass;
 			vm.useSamsungPay = useSamsungPay;
+			vm.changeManifest = changeManifest;
 			vm.useTwo = useTwo;
 			vm.useAll = useAll;
 			vm.useCardsOnly = useCardsOnly;
@@ -117,6 +118,36 @@
 				checkoutResponse.complete('success');
 			}
 
+			function callManifest() {
+				console.log('I am calling manifest');
+				return new Promise(function(resolve, reject) {
+					var xhr = new XMLHttpRequest();
+
+					xhr.open('GET', 'https://stage1.masterpass.com/masterpass-switch/tenant-switch/manifest.json');
+
+					xhr.onload = function(response) {
+						if (xhr.status === 200) {
+							response = JSON.parse(xhr.responseText);
+							resolve(response);
+						}
+					};
+
+					xhr.onerror = function(err) {
+						console.log('Error retrieving config', err);
+						reject(err);
+					};
+
+					xhr.send();
+				});
+			}
+
+			function changeManifest() {
+				callManifest()
+					.then(function(response) {
+						console.log('****', response);
+					})
+			}
+
 			function callCanMakePayment() {
 				run(vm.supportedPaymentMethod);
 				window.paymentRequest.canMakePayment()
@@ -145,6 +176,8 @@
 		<button ng-click="vm.useTwo()">Use AndroidPay and Bankoo</button>
 		<button ng-click="vm.useAll()">Use All</button>
 		<button ng-click="vm.useSamsungPay()">use Samsung Pay</button>
+
+		<button ng-click="vm.changeManifest()">Call Manifest</button>
 	</div>
 	<button ng-click="vm.handleClick()">Send Request</button>
 	<button ng-click="vm.callCanMakePayment()">call canMakePayment</button>
