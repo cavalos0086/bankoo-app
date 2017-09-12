@@ -60,6 +60,7 @@
 			vm.useAndroid = useAndroid;
 			vm.useMasterpass = useMasterpass;
 			vm.useSamsungPay = useSamsungPay;
+			vm.useMicrosoft = useMicrosoft;
 			vm.changeManifest = changeManifest;
 			vm.useTwo = useTwo;
 			vm.useAll = useAll;
@@ -90,6 +91,10 @@
 			function useTwo() {
 				vm.supportedPaymentMethod = ['https://android.com/pay', 'https://masterpass-payment-api.herokuapp.com/']
 				console.log('*****', 'using two only android and bankoo');
+			}
+
+			function useMicrosoft() {
+				vm.supportedPaymentMethod = ['https://pay.microsoft.com/microsoftpay'];
 			}
 
 			function handleError(err) {
@@ -177,7 +182,7 @@
 		<button ng-click="vm.useTwo()">Use AndroidPay and Bankoo</button>
 		<button ng-click="vm.useAll()">Use All</button>
 		<button ng-click="vm.useSamsungPay()">use Samsung Pay</button>
-
+		<button ng-click="vm.useMicrosoft()">use microsoft Pay</button>
 		<button ng-click="vm.changeManifest()">Call Manifest</button>
 	</div>
 	<button ng-click="vm.handleClick()">Send Request</button>
