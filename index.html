@@ -15,25 +15,65 @@
 
 		}
 
+		var settings = {
+			allowedCardTypes : ["master", "amex", "diners", "discover", "jcb", "maestro", "visa"],
+			allowedLoyaltyPrograms:[""],
+			allowedShipToCountries : ["US", "AU", "BE", "BR", "CA", "CN", "FR", "IL", "IT", "NL", "RO", "SG", "ES", "SE", "AE", "GB"],
+			callbackUrl :"https://stage1.masterpass.com/Checkout/MerchantDemoCallback?consumer_key=AXrJtrzQS23ztoJvOsWzHae3EnU0OXz9nEwiWzX65de3020f!4f784e4f786e5332662b2b7659512b634437646d6a513d3d",
+			cancelCallback: "https://stage1.masterpass.com/Checkout/MerchantDemoCallback?consumer_key=AXrJtrzQS23ztoJvOsWzHae3EnU0OXz9nEwiWzX65de3020f!4f784e4f786e5332662b2b7659512b634437646d6a513d3d",
+			cardId : "",
+			clientOrigin: "https://stage1.masterpass.com",
+			consumerWalletId : "",
+			failureCallback : "https://stage1.masterpass.com/Checkout/MerchantDemoCallback?consumer_key=AXrJtrzQS23ztoJvOsWzHae3EnU0OXz9nEwiWzX65de3020f!4f784e4f786e5332662b2b7659512b634437646d6a513d3d",
+			merchantCheckoutId: "e865b33ec86343efb3c62a1a60d00c3a",
+			merchantName: "Al Test Stage1 new 1",
+			pairingRequestToken: "84858bf534b08f294fe81bc0bc6a61348dfe3327",
+			precheckoutTransactionId:"",
+			requestBasicCheckout:false,
+			requestExpressCheckout:false,
+			requestPairing:false,
+			requestToken:"a753ff4c07d064e213837c164f3d2e9c42816c4e",
+			requestedDataTypes: "",
+			requireShippingDestination:true,
+			returnUrl:"",
+			shippingId:"",
+			shippingLocationProfile:"",
+			successCallback:"https://stage1.masterpass.com/Checkout/MerchantDemoCallback?consumer_key=AXrJtrzQS23ztoJvOsWzHae3EnU0OXz9nEwiWzX65de3020f!4f784e4f786e5332662b2b7659512b634437646d6a513d3d",
+			suppressShippingAddressEnable:"",
+			version:"v6",
+			walletName:"",
+			walletId: "DAC"
+		};
+
 		function initPaymentRequestApi(supportedPaymentMethod) {
 			var supportedInstruments = [
 				{
 					supportedMethods: supportedPaymentMethod,
 					data: {
-						//merchant ID obtained from Google that maps to your origin
-						merchantId: '02510116604241796260',
-						environment: 'TEST',
-						// Credit Cards allowed via Android Pay
-						allowedCardNetworks: ['MASTERCARD', 'VISA'],
-						paymentMethodTokenizationParameters: {
-							tokenizationType: 'GATEWAY_TOKEN',
-							parameters: {
-								'gateway': 'stripe',
-								// Place your own Stripe publishable key here.
-								'stripe:publishableKey': 'pk_live__jsfD7ggZCtrB0vJNApRX5TyJ9T',
-								'stripe:version': '2016-07-06'
-							}
-						}
+						accountIds: null,
+						amount:  null,
+						cartId: null,
+						checkoutVersion: 'V6',
+						correlationId: null,
+						currency: null,
+						cvc2Support: false, // for v6 this will always be false
+						integrationModel: null,
+						locale: 'en-US',
+						merchantCallbackUrl: settings.callbackUrl,
+						merchantIdentifier: settings.merchantCheckoutId,
+						originUrl: settings.clientOrigin,
+						shippingLocationProfile: settings.shippingLocationProfile,
+						signupId: null,
+						supportedNetworks: walletConfig.isTokenizationRequired ? ['master'] : settings.allowedCardTypes,
+						suppress3DS: settings.suppress3DS,
+						suppressShippingAddress: settings.suppressShippingAddress,
+						tokenization: {
+							cryptoOptions: null,
+							unpredictableNumber: null
+						},
+						transactionId: settings.requestToken,
+						validityPeriodInMinutes: settings.validityPeriodInMinutes || null ,
+						walletId: settings.walletId
 					}
 				}
 			];
